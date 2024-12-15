@@ -2,8 +2,11 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Euler } from 'three'
-// import App1 from './App1';
-// import App2 from './App2';
+import dynamic from "next/dynamic";
+
+// const App1 = dynamic(() => import("./App1"), { ssr: false });
+// const App2 = dynamic(() => import("./App2"), { ssr: false });
+
 import mouthMovement1 from './JSONmotion/MU1.json';
 import mouthMovement2 from './JSONmotion/MU2.json';
 import mouthMovement3 from './JSONmotion/MU3.json';
@@ -117,11 +120,11 @@ export default function Hero() {
     <div className="min-h-screen bg-gray-900 p-4 flex flex-col">
       <h1 className="text-3xl font-bold text-center mb-6 text-yellow-400">Web3 Social Avatar App</h1>
 
-      <div className="flex flex-col lg:flex-row gap-6 flex-grow">
+      {/* <div className="flex flex-col lg:flex-row gap-6 flex-grow">
         <div className="flex-grow flex flex-col sm:flex-row gap-4 p-6 bg-gray-800 shadow-xl rounded-xl">
           <div className="flex-1 aspect-video bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg overflow-hidden relative shadow-md">
             <div className="w-full h-full object-cover">
-              {/* <App1 myAvatar={myAvatar} /> */}
+              <App1 myAvatar={myAvatar} />
             </div>
             <div className="absolute bottom-3 left-3 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm font-semibold">
               You
@@ -130,7 +133,7 @@ export default function Hero() {
 
           <div className="flex-1 aspect-video bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg overflow-hidden relative shadow-md">
             <div className="w-full h-full object-cover">
-              {/* <App2 rotation={rotation} blendshapes={blendshapes} /> */}
+              <App2 rotation={rotation} blendshapes={blendshapes} />
             </div>
             <div className="absolute bottom-3 left-3 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm font-semibold">
               Them
@@ -162,9 +165,10 @@ export default function Hero() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
+      <iframe className="h-[100vh]" allow="camera; microphone;" src="https://67445889ffada10e69b925a4--beamish-unicorn-dbe22c.netlify.app/"></iframe>
 
-      <div className="mt-6 flex justify-center space-x-4">
+      {/* <div className="mt-6 flex justify-center space-x-4">
         <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full font-semibold shadow-md transition-all duration-300">
           End Call
         </button>
@@ -174,7 +178,7 @@ export default function Hero() {
         <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-semibold shadow-md transition-all duration-300">
           Turn Off Camera
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }

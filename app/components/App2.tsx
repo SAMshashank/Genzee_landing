@@ -1,7 +1,9 @@
+"use client";
 import { useEffect, useState } from 'react';
 import { Color, Euler } from 'three';
 import { Canvas, useFrame, useGraph } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
+import dynamic from 'next/dynamic';
 
 interface AvatarProps {
   url: string;
@@ -97,4 +99,4 @@ function App2({ rotation, blendshapes }: App2Props) {
   );
 }
 
-export default App2;
+export default dynamic(() => Promise.resolve(App2), { ssr: false });

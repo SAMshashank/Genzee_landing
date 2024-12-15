@@ -1,8 +1,11 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { FaceLandmarker, FaceLandmarkerOptions, FilesetResolver } from "@mediapipe/tasks-vision";
 import { Color, Euler, Matrix4 } from 'three';
 import { Canvas, useFrame, useGraph } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
+import dynamic from 'next/dynamic';
 
 let video: HTMLVideoElement;
 let faceLandmarker: FaceLandmarker;
@@ -147,4 +150,4 @@ function App1({myAvatar}: any) {
   
 
 
-export default App1;
+export default dynamic(() => Promise.resolve(App1), { ssr: false });
