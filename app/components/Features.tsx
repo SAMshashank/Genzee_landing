@@ -3,17 +3,17 @@ import { Zap, Shield, Globe } from 'lucide-react'
 export default function Features() {
   const features = [
     {
-      icon: <Zap className="h-6 w-6 text-yellow-500" />,
+      icon: <Zap className="h-6 w-6 text-yellow-700" />,
       title: 'Lightning Fast',
       description: 'Experience seamless, real-time interactions with our cutting-edge Web3 technology.',
     },
     {
-      icon: <Shield className="h-6 w-6 text-yellow-500" />,
+      icon: <Shield className="h-6 w-6 text-yellow-700" />,
       title: 'Secure & Private',
       description: 'Your data is protected with state-of-the-art encryption and blockchain security.',
     },
     {
-      icon: <Globe className="h-6 w-6 text-yellow-500" />,
+      icon: <Globe className="h-6 w-6 text-yellow-700" />,
       title: 'Global Community',
       description: 'Connect with like-minded individuals from around the world in our decentralized network.',
     },
