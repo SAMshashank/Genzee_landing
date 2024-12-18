@@ -32,11 +32,9 @@ const initialData = {
 
 export default function AdminDashboard() {
   const [data, setData] = useState(initialData)
-  const [partnerData,setPartnerData]=useState<PartnerDataInterface[]>([
-    
-  ])
-
+  const [partnerData,setPartnerData]=useState<PartnerDataInterface[]>([])
   const [featureData,setFeatureData]=useState<FeatureDataInterface[]>([])
+  const [productData,setProductData]=useState<ProductInterface[]>([])
 
 
   useEffect(() => {
@@ -45,6 +43,9 @@ export default function AdminDashboard() {
         })
         fetchPartnerData('feature').then((partnerData:any) => {
           setFeatureData(partnerData?.metadata);
+        })
+        fetchPartnerData('product').then((partnerData:any) => {
+          setProductData(partnerData?.metadata);
         })
   },[])
 
@@ -289,6 +290,65 @@ console.log("kjdhjkdhe")
     setPartnerData(updatedData);
   };
 
+  const handleAddProduct = () => {
+    const newProduct: ProductInterface = {
+      id: Date.now().toString(), // Generate unique id (or use your preferred method)
+      name: '',
+      price: '',
+      image: ''
+    };
+  
+    setProductData(prevData => [...prevData, newProduct]);
+  };
+  
+  // Handle text change for name and price
+  const handleProductTextChange = (field: 'name' | 'price', value: string, id: string) => {
+    setProductData(prevData =>
+      prevData.map(product =>
+        product.id === id ? { ...product, [field]: value } : product
+      )
+    );
+  };
+  
+  // Handle image upload (for simplicity, not handling image upload logic here)
+  const handleProductImageUpload = (id: number) => {
+    // Implement your image upload logic here, and set the image in productData
+    try {
+      // Prompt user to select an image
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "image/*";
+      fileInput.click();
+
+      fileInput.onchange = async (e: any) => {
+        e.preventDefault()
+        // setShow(true)
+        let imgs = e.target.files[0]
+        if (!imgs) return alert("File not exist.")
+
+
+        //5242880 == 5 mb
+        // if (imgs.size > 1024 * 1024 * 10) { setmg("Size too large!");setShow(false); return 0}
+        // if (imgs.type !== 'image/jpeg' && imgs.type !== 'image/png') { setmg("fileformat incorrect");setShow(false);return 0}
+       uploadImageData(imgs).then((data) => {
+        const productdats = [...productData];
+        productdats[id].image = data;
+        setProductData(productdats);
+        })
+
+        // Update the image URL in partnerData
+
+
+    } }catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+  
+  // Handle product deletion
+  const handleDeleteProduct = (id: string) => {
+    setProductData(prevData => prevData.filter(product => product.id !== id));
+  };
+
   const renderSection = (section: string) => {
     switch (section) {
 
@@ -399,43 +459,54 @@ console.log("kjdhjkdhe")
         return (
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-black">NFT Marketplace</h3>
-            {data.nftMarketplace.map(nft => (
-              <div key={nft.id} className="flex items-center space-x-4">
-                <img src={nft.image} alt={nft.name} className="w-16 h-16 object-cover rounded-md" />
-                <div className="flex-grow">
-                  <input
-                    type="text"
-                    value={nft.name}
-                    onChange={(e) => handleTextChange('nftMarketplace', 'name', e.target.value, nft.id)}
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
-                  />
-                  <input
-                    type="text"
-                    value={nft.price}
-                    onChange={(e) => handleTextChange('nftMarketplace', 'price', e.target.value, nft.id)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
-                  />
-                </div>
-                <button
-                  onClick={() => handleImageUpload('nftMarketplace', nft.id)}
-                  className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-black bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
-                >
-                  <Upload className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDelete('nftMarketplace', nft.id)}
-                  className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-black bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                >
-                  <Trash2 className="w-5 h-5" />
-                </button>
-              </div>
-            ))}
+            {productData.map((product,key) => (
+  <div key={product.id} className="flex items-center space-x-4">
+    <img
+      src={product.image}
+      alt={product.name}
+      className="w-16 h-16 object-cover rounded-md"
+    />
+    <div className="flex-grow">
+      <input
+        type="text"
+        value={product.name}
+        onChange={(e) => handleProductTextChange('name', e.target.value, product.id)}
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+      />
+      <input
+        type="text"
+        value={product.price}
+        onChange={(e) => handleProductTextChange('price', e.target.value, product.id)}
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+      />
+    </div>
+    <button
+      onClick={() => handleProductImageUpload(key)}
+      className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-black bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+    >
+      <Upload className="w-5 h-5" />
+    </button>
+    <button
+      onClick={() => handleDeleteProduct(product.id)}
+      className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-black bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+    >
+      <Trash2 className="w-5 h-5" />
+    </button>
+  </div>
+))}
             <button
-              onClick={() => handleAddItem('nftMarketplace')}
+              onClick={() => handleAddProduct()}
               className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               <Plus className="w-5 h-5 mr-2" />
               Add NFT
+            </button>
+            <button
+              onClick={() => postData(productData,'product')}
+              className="inline-flex items-center px-4 py-2 ml-7 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+  
+               Save Button
             </button>
           </div>
         )
@@ -543,4 +614,12 @@ interface FeatureDataInterface {
   icon: string;         // To handle the React component (icon) passed
   title: string;             // Title of the feature
   description: string;       // Description of the feature
+}
+
+
+interface ProductInterface {
+  id:string
+  name: string;  // Name of the product
+  price: string; // Price of the product (e.g., '0.5 ETH')
+  image: string; // URL or path to the image
 }
