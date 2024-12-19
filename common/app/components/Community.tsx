@@ -1,5 +1,5 @@
 import { Twitter, DiscIcon as Discord, TextIcon as Telegram } from 'lucide-react'
-
+import MentionedIN from './Mentionedin'
 export default function Community() {
   return (
     <section className="py-16 bg-gray-800">
@@ -19,16 +19,7 @@ export default function Community() {
             <span>Join Telegram Group</span>
           </a>
         </div>
-        <div className="mt-12">
-          <h3 className="text-2xl font-semibold text-center mb-6 text-yellow-400">Our Partners</h3>
-          <div className="flex flex-wrap justify-center gap-8">
-            {[1, 2, 3, 4].map((partner) => (
-              <div key={partner} className="w-40 h-20 bg-gray-900 rounded-lg shadow-md flex items-center justify-center">
-                <img src={`/placeholder.svg?height=80&width=160`} alt={`Partner ${partner}`} className="max-w-full max-h-full" />
-              </div>
-            ))}
-          </div>
-        </div>
+        <MentionedIN/>
       </div>
     </section>
   )

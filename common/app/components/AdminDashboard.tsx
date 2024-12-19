@@ -5,6 +5,7 @@ import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Trash2, Upload, Plus, Edit, Save, LogOut ,Zap,CheckCircle,XCircle} from 'lucide-react'
 
+
 // Mock data structure
 const initialData = {
   hero: {
@@ -510,6 +511,57 @@ console.log("kjdhjkdhe")
             </button>
           </div>
         )
+        case 'Mentionedin':
+          return (
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-black">Partners</h3>
+              {partnerData.map((partner, key) => (
+          <div key={key} className="flex items-center space-x-4">
+            {/* Image */}
+            <img src={partner.imageUrl} className="w-12 h-12 object-contain" alt="partner" />
+  
+            {/* Partner URL Input */}
+            <input
+              type="text"
+              value={partner.partnerUrl}
+              onChange={(e) => handleTextChangePartner(key, "partnerUrl", e.target.value,)}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+            />
+  
+            {/* Upload Image Button */}
+            <button
+              onClick={() => handleImageUploadPartner("partners", key)}
+              className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-black bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+            >
+              <Upload className="w-5 h-5" />
+            </button>
+  
+            {/* Delete Partner Button */}
+            <button
+              onClick={() => handleDeletePartner(key)}
+              className="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-black bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
+          </div>
+        ))}
+              <button
+                onClick={() => handleAddPartner()}
+                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Add Partner
+              </button>
+              <button
+                onClick={() => postData(partnerData,'partner')}
+                className="inline-flex items-center px-4 py-2 ml-7 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+    
+                 Save Button
+              </button>
+            </div>
+          )
+
       case 'roadmap':
         return (
           <div className="space-y-4">
@@ -579,7 +631,7 @@ console.log("kjdhjkdhe")
             <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 overflow-auto">
               <div className="p-4">
                 <div className="flex space-x-4 mb-4">
-                  {['hero', 'partners', 'features', 'nftMarketplace', 'roadmap'].map((section) => (
+                  {['hero', 'partners', 'features', 'nftMarketplace', 'Mentionedin','roadmap'].map((section) => (
                     <button
                       key={section}
                       onClick={() => setActiveSection(section)}
@@ -618,6 +670,12 @@ interface FeatureDataInterface {
 
 
 interface ProductInterface {
+  id:string
+  name: string;  // Name of the product
+  price: string; // Price of the product (e.g., '0.5 ETH')
+  image: string; // URL or path to the image
+}
+interface MentionedIn {
   id:string
   name: string;  // Name of the product
   price: string; // Price of the product (e.g., '0.5 ETH')
