@@ -479,6 +479,7 @@ export default function AdminDashboard() {
         return (
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-black">Features</h3>
+            <h1 className='text-blue-600'>https://lucide.dev/icons/</h1>
             {featureData.map((feature, index) => (
               <>      <div key={index} className="space-y-2">
               <div className="flex space-x-4">
@@ -487,18 +488,22 @@ export default function AdminDashboard() {
                   value={feature.icon}
                   onChange={(e) => handleFeatureTextChange('icon', e.target.value, index)}
                   className="block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+                placeholder='ICON'
                 />
                 <input
                   type="text"
                   value={feature.title}
                   onChange={(e) => handleFeatureTextChange('title', e.target.value, index)}
                   className="block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+                placeholder='Title'
                 />
+
               </div>
               <textarea
                 value={feature.description}
                 onChange={(e) => handleFeatureTextChange('description', e.target.value, index)}
                 className="block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+              placeholder='DESC...'
               />
               <button
                 onClick={() => handleFeatureDelete(index)}
@@ -545,13 +550,16 @@ export default function AdminDashboard() {
         value={product.name}
         onChange={(e) => handleProductTextChange('name', e.target.value, product.id)}
         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+      placeholder='Name'
       />
       <input
         type="text"
         value={product.price}
         onChange={(e) => handleProductTextChange('price', e.target.value, product.id)}
         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
-      />
+     
+     placeholder='Price with Currency Name eg: ETH, BNB, BTC'
+     />
     </div>
     <button
       onClick={() => handleProductImageUpload(key)}
@@ -647,6 +655,7 @@ export default function AdminDashboard() {
                               handleRoadmapTextChange("phase", e.target.value, index)
                           }
                           className="block w-24 rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+                      placeholder='Phase type'
                       />
                       <input
                           type="text"
@@ -655,7 +664,8 @@ export default function AdminDashboard() {
                               handleRoadmapTextChange("title", e.target.value, index)
                           }
                           className="block flex-grow rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
-                      />
+                     placeholder='Title' 
+                     />
                       <select
                           value={item.status}
                           onChange={(e) =>
@@ -673,6 +683,7 @@ export default function AdminDashboard() {
                               handleRoadmapTextChange("description", e.target.value, index)
                           }
                           className="block flex-grow rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-black"
+                      placeholder='Desc...'
                       />
                       <button
                           onClick={() => handleRoadmapDelete(index)}

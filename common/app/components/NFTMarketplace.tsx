@@ -3,12 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-// const nftProducts:ProductInterface[] = [
-//   { id: '1', name: 'Golden Crown', price: '0.5 ETH', image: '/placeholder.svg?height=200&width=200&text=Golden+Crown' },
-//   { id: '2', name: 'Neon Glasses', price: '0.3 ETH', image: '/placeholder.svg?height=200&width=200&text=Neon+Glasses' },
-//   { id: '3', name: 'Cyber Wings', price: '0.7 ETH', image: '/placeholder.svg?height=200&width=200&text=Cyber+Wings' },
-//   { id: '4', name: 'Custom NFT', price: 'Variable', image: '/placeholder.svg?height=200&width=200&text=Custom+NFT', customizable: true },
-// ]
+
 
 
 

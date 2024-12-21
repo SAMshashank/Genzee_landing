@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 const images = [
-  '/placeholder.svg?height=400&width=400&text=App+Screenshot+1',
-  '/placeholder.svg?height=400&width=400&text=App+Screenshot+2',
-  '/placeholder.svg?height=400&width=400&text=App+Screenshot+3',
+  '/assets/fir1.webp',
+  '/assets/fir2.webp',
+  '/assets/fir3.webp',
 ]
 
 export default function AppShowcase() {
@@ -15,7 +15,7 @@ export default function AppShowcase() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prevImage) => (prevImage + 1) % images.length)
-    }, 2000)
+    }, 4000)
 
     return () => clearInterval(interval)
   }, [])
@@ -39,14 +39,14 @@ export default function AppShowcase() {
               Participate in the Web3 economy by earning, trading, and collecting digital assets within our decentralized platform.
             </p>
           </div>
-          <div className="lg:w-1/2 order-1 lg:order-2 relative aspect-square w-full max-w-[400px]">
+          <div className="lg:w-1/2 order-1 lg:order-2 relative aspect-square w-full max-w-[400px] ">
             {images.map((src, index) => (
               <Image
                 key={src}
                 src={src}
                 alt={`App Screenshot ${index + 1}`}
                 fill
-                className={`rounded-lg shadow-xl transition-opacity duration-1000 object-cover ${
+                className={`rounded-lg shadow-xl transition-opacity duration-5000 object-cover  ${
                   index === currentImage ? 'opacity-100' : 'opacity-0'
                 }`}
               />
