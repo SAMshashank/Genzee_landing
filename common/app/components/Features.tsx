@@ -4,6 +4,15 @@ import { useState, useEffect } from 'react';
 // Define a union type for all possible icon names
 type IconName = keyof typeof IconC;
 
+// Define a valid React component type for Lucide icons
+type LucideIconComponent = (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+
+interface FeatureDataInterface {
+  icon: IconName; // Icon name must match the keys in `lucide-react`
+  title: string;
+  description: string;
+}
+
 export default function Features() {
   const show = true;
 
@@ -50,7 +59,7 @@ export default function Features() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {features.map((feature, index) => {
                 // Dynamically access the icon component from IconC namespace
-                const IconComponent = IconC[feature.icon as IconName]; // Cast to IconName
+                const IconComponent = IconC[feature.icon as IconName] as LucideIconComponent;
 
                 return (
                   <div
@@ -75,10 +84,4 @@ export default function Features() {
       )}
     </>
   );
-}
-
-interface FeatureDataInterface {
-  icon: IconName; // Change this to IconName for TypeScript type safety
-  title: string;
-  description: string;
 }

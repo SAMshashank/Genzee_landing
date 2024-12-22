@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault()
     try {
 
-      const result = await signIn('credentials', {
+      const result = await signIn('Credentials', {
         redirect: false,
         email:username,
         password,
