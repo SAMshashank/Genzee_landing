@@ -1,9 +1,9 @@
 'use client'
 
 import { useState,useEffect } from 'react'
-import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Trash2, Upload, Plus, Edit, Save, LogOut ,Zap,CheckCircle,XCircle} from 'lucide-react'
+import Cookie from 'js-cookie';
 
 
 // Mock data structure
@@ -60,7 +60,6 @@ export default function AdminDashboard() {
 
 
   const [activeSection, setActiveSection] = useState('partners')
-  const { data: session, status } = useSession()
   const router = useRouter()
 
   const handleAddPartner = () => {
@@ -421,6 +420,12 @@ export default function AdminDashboard() {
     };
 
 
+    const handlesignOut = () =>{
+        Cookie.remove("auth_token");
+        router.push('/admin/login')
+    }
+
+
 
   const renderSection = (section: string) => {
     switch (section) {
@@ -720,7 +725,7 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
           <button
-            onClick={() => signOut({ callbackUrl: '/admin/login' })}
+            onClick={() => handlesignOut()}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
             <LogOut className="w-5 h-5 mr-2" />

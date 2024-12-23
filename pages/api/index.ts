@@ -8,6 +8,7 @@ import next, { NextApiHandler } from "next";
 import connectToMongoose  from "./database/dbconfig";
 import adminRouter from "./controller/admin.controller";
 import userRouter from "./controller/user.controller";
+import subscriptionRouter from "./controller/subscription.controller";
 
 
 // const  setupSocket =require("./controller/socket");
@@ -23,6 +24,7 @@ nextApp.prepare().then(async () => {
   app.use(express.json());
   app.use('/api/admin',adminRouter);
   app.use('/api/user',userRouter);
+  app.use('/api/subscription',subscriptionRouter);
   // app.use('/api/rooms', roomRouter);
 
   try {

@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 import Admin from "../schema/Admin.model";
+import cookie from 'cookie';
+
 // const fetchuser = require('../middleware/getuser')
 
 import fetchUser from "../middleware/getuser";
@@ -74,7 +76,14 @@ router.post('/login', async (req:any, res:any) => {
       }
       const authtoken = jwt.sign(data, JWt_SECRET);
       success = true;
-      res.json({ success, authtoken });
+      res.setHeader('Set-Cookie', cookie.serialize('auth_token', authtoken, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'production', // set secure flag in production
+        maxAge: 60 * 60, // 1 hour
+        path: '/',
+      }));
+  
+      return res.status(200).json({ message: 'Logged in successfully' });
   
     } catch (error:any) {
       console.error(error.message);

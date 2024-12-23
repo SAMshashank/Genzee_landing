@@ -5,34 +5,37 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 export default function Login() {
-  const [username, setUsername] = useState('123')
-  const [password, setPassword] = useState('123')
+  const [username, setUsername] = useState('somnath554.in@gmail.com')
+  const [password, setPassword] = useState('1234567890')
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+  
     try {
-
-      const result = await signIn('Credentials', {
-        redirect: false,
-        email:username,
-        password,
+      // Make a POST request to your custom login API
+      const response = await fetch('/api/user/login', { // Assuming /api/login is the endpoint for login
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: username, password }),
       });
   
-      if (result?.ok) {
-        router.push('/admin/admin')
-        // setMessage('Login successful!');
+      const result = await response.json();
+  
+      if (response.ok) {
+        // Redirect to /admin/admin page after successful login
+        router.push('/admin/admin');
       } else {
-        alert(result?.error || 'Something went wrong');
+        // Show error message if login fails
+        alert(result.error || 'Something went wrong');
       }
-    }
-     catch (error) {
+    } catch (error) {
       console.error('Error during login:', error);
       alert('Internal Server Error');
     }
-
-    
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
